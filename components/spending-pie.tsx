@@ -1,6 +1,6 @@
 "use client";
 import { FileSearch, Loader2, PieChart, Radar, Target } from "lucide-react";
-import { useState } from "react";
+import { useState, lazy, Suspense } from "react";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -12,9 +12,10 @@ import {
 } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
 
-import { PieVariant } from "./pie-variant";
-import { RadarVariant } from "./radar-variant";
-import { RadialVariant } from "./radial-variant";
+// Lazy load chart variants for better performance
+const PieVariant = lazy(() => import("./pie-variant").then(module => ({ default: module.PieVariant })));
+const RadarVariant = lazy(() => import("./radar-variant").then(module => ({ default: module.RadarVariant })));
+const RadialVariant = lazy(() => import("./radial-variant").then(module => ({ default: module.RadialVariant })));
 
 type SpendingPieProps = {
   data?: {
@@ -78,11 +79,15 @@ export const SpendingPie = ({ data = [] }: SpendingPieProps) => {
             </p>
           </div>
         ) : (
-          <>
+          <Suspense fallback={
+            <div className="flex h-[350px] w-full items-center justify-center">
+              <Loader2 className="size-6 animate-spin text-slate-300" />
+            </div>
+          }>
             {chartType === "pie" && <PieVariant data={data} />}
             {chartType === "radar" && <RadarVariant data={data} />}
             {chartType === "radial" && <RadialVariant data={data} />}
-          </>
+          </Suspense>
         )}
       </CardContent>
     </Card>

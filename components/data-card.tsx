@@ -1,5 +1,7 @@
 import { type IconType } from "react-icons";
 import { cva, type VariantProps } from "class-variance-authority";
+import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 
 import {
   Card,
@@ -13,13 +15,13 @@ import { cn, formatCurrency, formatPercentage } from "@/lib/utils";
 
 import { CountUp } from "./count-up";
 
-const boxVariant = cva("shrink-0 rounded-md p-3", {
+const boxVariant = cva("shrink-0 rounded-md p-3 relative overflow-hidden", {
   variants: {
     variant: {
-      default: "bg-blue-500/20",
-      success: "bg-emerald-500/20",
-      danger: "bg-rose-500/20",
-      warning: "bg-yellow-500/20",
+      default: "bg-gradient-to-br from-blue-500/20 to-cyan-500/20 border border-blue-500/30",
+      success: "bg-gradient-to-br from-emerald-500/20 to-teal-500/20 border border-emerald-500/30",
+      danger: "bg-gradient-to-br from-rose-500/20 to-pink-500/20 border border-rose-500/30",
+      warning: "bg-gradient-to-br from-yellow-500/20 to-orange-500/20 border border-yellow-500/30",
     },
   },
   defaultVariants: {
@@ -27,13 +29,13 @@ const boxVariant = cva("shrink-0 rounded-md p-3", {
   },
 });
 
-const iconVariant = cva("size-6", {
+const iconVariant = cva("size-6 relative z-10", {
   variants: {
     variant: {
-      default: "fill-blue-500",
-      success: "fill-emerald-500",
-      danger: "fill-rose-500",
-      warning: "fill-yellow-500",
+      default: "text-blue-500 drop-shadow-lg",
+      success: "text-emerald-500 drop-shadow-lg",
+      danger: "text-rose-500 drop-shadow-lg",
+      warning: "text-yellow-500 drop-shadow-lg",
     },
   },
   defaultVariants: {
@@ -61,46 +63,115 @@ export const DataCard = ({
   variant,
   dateRange,
 }: DataCardProps) => {
+  const { ref, inView } = useInView({
+    threshold: 0.3,
+    triggerOnce: true,
+  });
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 50, scale: 0.9 },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      scale: 1,
+      transition: { duration: 0.6, ease: "easeOut" as const }
+    }
+  };
+
+  const glowVariants = {
+    hidden: { opacity: 0 },
+    visible: { 
+      opacity: 1,
+      transition: { delay: 0.3, duration: 1 }
+    }
+  };
+
   return (
-    <Card className="border-none drop-shadow-sm">
-      <CardHeader className="flex flex-row items-center justify-between gap-x-4">
-        <div className="space-y-2">
-          <CardTitle className="line-clamp-1 text-2xl">{title}</CardTitle>
+    <motion.div
+      ref={ref}
+      variants={cardVariants}
+      initial="hidden"
+      animate={inView ? "visible" : "hidden"}
+      whileHover={{ 
+        scale: 1.03, 
+        transition: { duration: 0.2 }
+      }}
+    >
+      <Card className="glass border-none drop-shadow-lg hover:drop-shadow-2xl transition-all duration-300 relative overflow-hidden group">
+        {/* Animated background glow */}
+        <motion.div
+          variants={glowVariants}
+          initial="hidden"
+          animate={inView ? "visible" : "hidden"}
+          className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+        />
+        
+        <CardHeader className="flex flex-row items-center justify-between gap-x-4 relative z-10">
+          <div className="space-y-2">
+            <CardTitle className="line-clamp-1 text-2xl font-bold text-gradient">
+              {title}
+            </CardTitle>
+            <CardDescription className="line-clamp-1 text-muted-foreground">
+              {dateRange}
+            </CardDescription>
+          </div>
 
-          <CardDescription className="line-clamp-1">
-            {dateRange}
-          </CardDescription>
-        </div>
+          <motion.div 
+            className={cn(boxVariant({ variant }))}
+            whileHover={{ 
+              rotate: [0, -10, 10, 0], 
+              transition: { duration: 0.5 }
+            }}
+          >
+            {/* Floating background effect */}
+            <motion.div
+              className="absolute inset-0 rounded-md"
+              animate={{
+                background: [
+                  "linear-gradient(45deg, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.1))",
+                  "linear-gradient(90deg, rgba(147, 51, 234, 0.1), rgba(59, 130, 246, 0.1))",
+                  "linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.1))",
+                ],
+              }}
+              transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+            />
+            <Icon className={cn(iconVariant({ variant }))} />
+          </motion.div>
+        </CardHeader>
 
-        <div className={cn(boxVariant({ variant }))}>
-          <Icon className={cn(iconVariant({ variant }))} />
-        </div>
-      </CardHeader>
+        <CardContent className="relative z-10">
+          <motion.h1 
+            className="mb-2 line-clamp-1 break-all text-3xl font-bold neon-glow-blue"
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.5 }}
+            transition={{ delay: 0.4, duration: 0.5 }}
+          >
+            <CountUp
+              preserveValue
+              start={0}
+              end={value}
+              decimals={2}
+              decimalPlaces={2}
+              formattingFn={formatCurrency}
+            />
+          </motion.h1>
 
-      <CardContent>
-        <h1 className="mb-2 line-clamp-1 break-all text-2xl font-bold">
-          <CountUp
-            preserveValue
-            start={0}
-            end={value}
-            decimals={2}
-            decimalPlaces={2}
-            formattingFn={formatCurrency}
-          />
-        </h1>
-
-        <p
-          className={cn(
-            "line-clamp-1 text-sm text-muted-foreground",
-            percentageChange > 0 && "text-emerald-500",
-            percentageChange < 0 && "text-rose-500"
-          )}
-        >
-          {formatPercentage(percentageChange, { addPrefix: true })} from last
-          period.
-        </p>
-      </CardContent>
-    </Card>
+          <motion.p
+            className={cn(
+              "line-clamp-1 text-sm font-medium",
+              percentageChange > 0 && "text-emerald-500 neon-glow-green",
+              percentageChange < 0 && "text-rose-500 neon-glow-pink",
+              percentageChange === 0 && "text-muted-foreground"
+            )}
+            initial={{ opacity: 0, x: -20 }}
+            animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+            transition={{ delay: 0.6, duration: 0.5 }}
+          >
+            {formatPercentage(percentageChange, { addPrefix: true })} from last period.
+          </motion.p>
+        </CardContent>
+      </Card>
+    </motion.div>
   );
 };
 
