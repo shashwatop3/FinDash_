@@ -20,7 +20,7 @@ type SelectedColumnsState = {
 type ImportCardProps = {
   data: string[][];
   onCancel: () => void;
-  onSubmit: (data: any) => void;
+  onSubmit: (_data: any) => void;
 };
 
 export const ImportCard = ({ data, onCancel, onSubmit }: ImportCardProps) => {

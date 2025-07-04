@@ -8,7 +8,6 @@ import { auth } from "@clerk/nextjs/server";
 
 import { db } from "@/src/db/drizzle";
 import { categories, insertCategorySchema } from "@/src/db/schema";
-import { use } from "react";
 
 const app = new Hono()
   .get("/", clerkMiddleware(), async (ctx) => {

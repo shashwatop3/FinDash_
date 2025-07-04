@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 
 type AmountInputProps = {
   value: string;
-  onChange: (value: string | undefined) => void;
+  onChange: (_value: string | undefined) => void;
   placeholder?: string;
   disabled?: boolean;
 };

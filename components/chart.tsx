@@ -45,14 +45,14 @@ export const Chart = ({ data = [] }: ChartProps) => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
-      <Card className="glass border-none drop-shadow-xl card-modern">
+      <Card className="glass border-none drop-shadow-2xl hover:drop-shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] shadow-2xl hover:shadow-[0_35px_60px_-12px_rgba(0,0,0,0.3)] transition-all duration-300 card-modern group">
         <CardHeader className="flex justify-between space-y-2 lg:flex-row lg:items-center lg:space-y-0">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2, duration: 0.5 }}
           >
-            <CardTitle className="line-clamp-1 text-2xl font-bold text-gradient">
+            <CardTitle className="line-clamp-1 text-2xl font-bold">
               Transactions
             </CardTitle>
           </motion.div>
@@ -163,7 +163,7 @@ export const Chart = ({ data = [] }: ChartProps) => {
 
 export const ChartLoading = () => {
   return (
-    <Card className="border-none drop-shadow-sm">
+    <Card className="border-none drop-shadow-2xl shadow-2xl">
       <CardHeader className="flex justify-between space-y-2 lg:flex-row lg:items-center lg:space-y-0">
         <Skeleton className="h-8 w-48" />
         <Skeleton className="h-8 w-full lg:w-[120px]" />

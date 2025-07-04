@@ -1,4 +1,4 @@
-# 🚀 Deployment Guide for FinPro
+# 🚀 Deployment Guide for FinDash
 
 ## Quick Deploy to Vercel
 

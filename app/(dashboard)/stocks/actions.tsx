@@ -16,7 +16,7 @@ type Props = {
   id: string;
 };
 export const Actions = ({ id }: Props) => {
-  const { onOpen, onClose } = useOpenAccount();
+  const { onOpen } = useOpenAccount();
   const [ConfirmDialog, confirm] = useConfirm(
     "Are u sure?",
     "You are about to delete this account."

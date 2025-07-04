@@ -32,7 +32,7 @@ export const SpendingPie = ({ data = [] }: SpendingPieProps) => {
     setChartType(type);
   };
   return (
-    <Card className="border-none drop-shadow-sm">
+    <Card className="border-none drop-shadow-2xl hover:drop-shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] shadow-2xl hover:shadow-[0_35px_60px_-12px_rgba(0,0,0,0.3)] transition-all duration-300 group">
       <CardHeader className="flex justify-between space-y-2 lg:flex-row lg:items-center lg:space-y-0">
         <CardTitle className="line-clamp-1 text-xl">Categories</CardTitle>
 
@@ -96,7 +96,7 @@ export const SpendingPie = ({ data = [] }: SpendingPieProps) => {
 
 export const SpendingPieLoading = () => {
   return (
-    <Card className="border-none drop-shadow-sm">
+    <Card className="border-none drop-shadow-2xl shadow-2xl">
       <CardHeader className="flex justify-between space-y-2 lg:flex-row lg:items-center lg:space-y-0">
         <Skeleton className="h-8 w-48" />
         <Skeleton className="h-8 w-full lg:w-[120px]" />

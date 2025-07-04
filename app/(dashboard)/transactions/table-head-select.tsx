@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 type TableHeadSelectProps = {
   columnIndex: number;
   selectedColumns: Record<string, string | null>;
-  onChange: (columnIndex: number, value: string | null) => void;
+  onChange: (_columnIndex: number, _value: string | null) => void;
 };
 
 const options = ["amount", "payee", "date"];
@@ -38,14 +38,14 @@ export const TableHeadSelect = ({
 
       <SelectContent>
         <SelectItem value="skip">Skip</SelectItem>
-        {options.map((option, index) => {
+        {options.map((option) => {
           const disabled =
             Object.values(selectedColumns).includes(option) &&
             selectedColumns[`column_${columnIndex}`] !== option;
 
           return (
             <SelectItem
-              key={index}
+              key={option}
               value={option}
               disabled={disabled}
               className="capitalize"

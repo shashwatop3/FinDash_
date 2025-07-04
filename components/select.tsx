@@ -5,8 +5,8 @@ import type { SingleValue } from "react-select";
 import CreatableSelect from "react-select/creatable";
 
 type SelectProps = {
-  onChange: (value?: string) => void;
-  onCreate?: (value: string) => void;
+  onChange: (_value?: string) => void;
+  onCreate?: (_value: string) => void;
   options?: { label: string; value: string }[];
   value?: string | null | undefined;
   disabled?: boolean;

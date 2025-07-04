@@ -15,11 +15,15 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "FinPro - Modern Financial Dashboard",
+  title: "FinDash - Modern Financial Dashboard",
   description: "A modern, animated financial SaaS platform with real-time insights",
   keywords: ["finance", "dashboard", "analytics", "modern", "animated"],
   authors: [{ name: "Parv Gugnani" }],
-  viewport: "width=device-width, initial-scale=1",
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({

@@ -19,11 +19,6 @@ import { columns } from "./columns";
 import { ImportCard } from "./import-card";
 import { UploadButton } from "./upload-button";
 
-enum VARIANTS {
-  LIST = "LIST",
-  IMPORT = "IMPORT",
-}
-
 const INITIAL_IMPORT_RESULTS = {
   data: [],
   errors: [],
@@ -31,7 +26,7 @@ const INITIAL_IMPORT_RESULTS = {
 };
 
 const TransactionsPage = () => {
-  const [variant, setVariant] = useState<VARIANTS>(VARIANTS.LIST);
+  const [variant, setVariant] = useState<"LIST" | "IMPORT">("LIST");
   const [importResults, setImportResults] = useState(INITIAL_IMPORT_RESULTS);
 
   const [AccountDialog, confirm] = useSelectAccount();
@@ -43,12 +38,12 @@ const TransactionsPage = () => {
 
   const onUpload = (results: typeof INITIAL_IMPORT_RESULTS) => {
     setImportResults(results);
-    setVariant(VARIANTS.IMPORT);
+    setVariant("IMPORT");
   };
 
   const onCancelImport = () => {
     setImportResults(INITIAL_IMPORT_RESULTS);
-    setVariant(VARIANTS.LIST);
+    setVariant("LIST");
   };
 
   const onSubmitImport = async (
@@ -93,7 +88,7 @@ const TransactionsPage = () => {
     );
   }
 
-  if (variant === VARIANTS.IMPORT) {
+  if (variant === "IMPORT") {
     return (
       <>
         <AccountDialog />

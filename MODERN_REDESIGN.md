@@ -1,4 +1,4 @@
-# 🎨 FinPro - Modern Financial Dashboard Redesign
+# 🎨 FinDash - Modern Financial Dashboard Redesign
 
 ## ✨ Design Overview
 

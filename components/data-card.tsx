@@ -32,10 +32,10 @@ const boxVariant = cva("shrink-0 rounded-md p-3 relative overflow-hidden", {
 const iconVariant = cva("size-6 relative z-10", {
   variants: {
     variant: {
-      default: "text-blue-500 drop-shadow-lg",
-      success: "text-emerald-500 drop-shadow-lg",
-      danger: "text-rose-500 drop-shadow-lg",
-      warning: "text-yellow-500 drop-shadow-lg",
+      default: "text-blue-500 drop-shadow-2xl filter brightness-110",
+      success: "text-emerald-500 drop-shadow-2xl filter brightness-110",
+      danger: "text-rose-500 drop-shadow-2xl filter brightness-110",
+      warning: "text-yellow-500 drop-shadow-2xl filter brightness-110",
     },
   },
   defaultVariants: {
@@ -97,7 +97,7 @@ export const DataCard = ({
         transition: { duration: 0.2 }
       }}
     >
-      <Card className="glass border-none drop-shadow-lg hover:drop-shadow-2xl transition-all duration-300 relative overflow-hidden group">
+      <Card className="glass border-none drop-shadow-2xl hover:drop-shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] shadow-2xl hover:shadow-[0_35px_60px_-12px_rgba(0,0,0,0.3)] transition-all duration-300 relative overflow-hidden group">
         {/* Animated background glow */}
         <motion.div
           variants={glowVariants}
@@ -108,7 +108,7 @@ export const DataCard = ({
         
         <CardHeader className="flex flex-row items-center justify-between gap-x-4 relative z-10">
           <div className="space-y-2">
-            <CardTitle className="line-clamp-1 text-2xl font-bold text-gradient">
+            <CardTitle className="line-clamp-1 text-2xl font-bold">
               {title}
             </CardTitle>
             <CardDescription className="line-clamp-1 text-muted-foreground">
@@ -141,7 +141,7 @@ export const DataCard = ({
 
         <CardContent className="relative z-10">
           <motion.h1 
-            className="mb-2 line-clamp-1 break-all text-3xl font-bold neon-glow-blue"
+            className="mb-2 line-clamp-1 break-all text-3xl font-bold "
             initial={{ opacity: 0, scale: 0.5 }}
             animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.5 }}
             transition={{ delay: 0.4, duration: 0.5 }}
@@ -177,7 +177,7 @@ export const DataCard = ({
 
 export const DataCardLoading = () => {
   return (
-    <Card className="h-[192px] border-none drop-shadow-sm">
+    <Card className="h-[192px] border-none drop-shadow-2xl shadow-2xl">
       <CardHeader className="flex flex-row items-center justify-between">
         <div className="space-y-2">
           <Skeleton className="h-6 w-24" />

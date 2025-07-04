@@ -13,7 +13,7 @@ type ImportTableProps = {
   headers: string[];
   body: string[][];
   selectedColumns: Record<string, string | null>;
-  onTableHeadSelectChange: (columnIndex: number, value: string | null) => void;
+  onTableHeadSelectChange: (_columnIndex: number, _value: string | null) => void;
 };
 
 export const ImportTable = ({
@@ -27,7 +27,7 @@ export const ImportTable = ({
       <Table>
         <TableHeader className="bg-muted">
           <TableRow>
-            {headers.map((_header, index) => (
+            {headers.map((_, index) => (
               <TableHead key={index}>
                 <TableHeadSelect
                   columnIndex={index}

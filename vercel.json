@@ -5,7 +5,7 @@
   "installCommand": "npm install",
   "devCommand": "npm run dev",
   "env": {
-    "NEXT_PUBLIC_APP_URL": "https://finpro-saas.vercel.app"
+    "NEXT_PUBLIC_APP_URL": "https://findash-saas.vercel.app"
   },
   "regions": ["iad1"],
   "functions": {

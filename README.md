@@ -1,8 +1,8 @@
-# FinPro - Modern Financial Dashboard 💰📊
+# FinDash - Modern Financial Dashboard 💰📊
 
 A modern, animated financial SaaS platform built with Next.js, featuring real-time insights, beautiful animations, and a sleek design.
 
-![FinPro Logo](public/logo.svg)
+![FinDash Logo](public/logo.svg)
 
 ## 🚀 Features
 
